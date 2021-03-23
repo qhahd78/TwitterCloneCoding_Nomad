@@ -8,6 +8,10 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
   // Router 에 props 형태로 state를 전달
   // useEffect(() => {
+    console.log(authService.currentUser)
+    setInterval(() => {
+    console.log(authService.currentUser)
+  }, 2000);
 
   // }, [])
   

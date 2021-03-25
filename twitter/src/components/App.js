@@ -3,17 +3,21 @@ import AppRouter from 'components/Router';
 import { authService } from '../firebasekeys';
 
 function App() {
+  
   const [init, setInit] = useState(false);
   // state 에 현재 유저 정보를 저장. 현재 로그인/로그아웃 상태를 알 수 있다. 
   const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
   // Router 에 props 형태로 state를 전달
-  // useEffect(() => {
-    console.log(authService.currentUser)
-    setInterval(() => {
-    console.log(authService.currentUser)
-  }, 2000);
-
-  // }, [])
+  useEffect(() => {
+    authService.onAuthStateChanged((user) => {
+      if(user){
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+      setInit(true);
+    });
+  }, []);
   
   return (
     <>

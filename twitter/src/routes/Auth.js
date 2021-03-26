@@ -1,4 +1,4 @@
-import { authService } from 'firebasekeys';
+import { authService, firebaseInstance } from 'firebasekeys';
 import React, {useState} from 'react'
 
 function Auth() {
@@ -45,8 +45,20 @@ function Auth() {
             }
         };
         const toggleAccount = () => setNewAccount((prev) => !prev);
-
-    return (
+        const onSocialClick = async (event) => {
+            const {
+                target:{ name },
+        } = event;
+        let provider
+        if (name === "google") {
+            provider = new firebaseInstance.auth.GoogleAuthProvider();
+        } else if (name === "github") {
+            provider = new firebaseInstance.auth.GithubAuthProvider();
+        }
+        const data = await authService.signInWithPopup(provider);
+        console.log(data);
+        };
+        return (
         <div>
             <form onSubmit={onSubmit}>
                 {/* onChange 속성 ? input 안에 값이 들어오면 실행되게 함. 여기서는 onChange 함수가 실행되게 했음.  */}
@@ -58,8 +70,8 @@ function Auth() {
             </form>
             <span onClick={toggleAccount}>{newAccount ? "Sign in": "Create Account"}</span>
             <div>
-                <button>Google LogIn</button>
-                <button>Github LogIn</button>
+                <button onClick = {onSocialClick} name="google">Google LogIn</button>
+                <button onClick = {onSocialClick} name="github">Github LogIn</button>
             </div>
         </div>
     )

@@ -13,6 +13,8 @@ const firebaseConfig = {
 
   firebase.initializeApp(firebaseConfig);
 
+  export const firebaseInstance = firebase;
+  
   // export 시킴으로써 한 번만 호출해도 되게끔. 
   export const authService = firebase.auth();
 

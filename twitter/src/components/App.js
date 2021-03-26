@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AppRouter from 'components/Router';
 import { authService } from '../firebasekeys';
 
@@ -21,7 +21,8 @@ function App() {
   
   return (
     <>
-      <AppRouter isLoggedIn={isLoggedIn} />
+    {/* 초기화 중에는 Initializing 출력 하다가 로그인 되면 home 보이기 */}
+      {init ? <AppRouter isLoggedIn={isLoggedIn} /> : "Initializing...."}
       <footer>&copy; TwitterApp {new Date().getFullYear()}</footer>
     </>
     );

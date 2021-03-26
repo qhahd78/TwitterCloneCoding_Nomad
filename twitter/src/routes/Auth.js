@@ -6,6 +6,7 @@ function Auth() {
         const [email, setEmail] = useState("");
         const [password, setPassword ] = useState("");
         const [newAccount, setNewAccount] = useState(true);
+        const [error, setError] = useState("");
 
         // onChange 함수 정의 
         const onChange = (event) => {
@@ -40,9 +41,11 @@ function Auth() {
                 }
                 console.log(data)
             } catch(error){
-                console.log(error)
+                setError(error.message)
             }
         };
+        const toggleAccount = () => setNewAccount((prev) => !prev);
+
     return (
         <div>
             <form onSubmit={onSubmit}>
@@ -51,7 +54,9 @@ function Auth() {
                 <input name="password" type="password" placeholder="Password" required value={password} onChange={onChange}/>
                 {/* state 가 newAccount 면 CreateAccount 출력 아니면 LogIn 출력   */}
                 <input type="submit" value={newAccount ? "CreateAccount" : "LogIn" }/>
+                {error}
             </form>
+            <span onClick={toggleAccount}>{newAccount ? "Sign in": "Create Account"}</span>
             <div>
                 <button>Google LogIn</button>
                 <button>Github LogIn</button>

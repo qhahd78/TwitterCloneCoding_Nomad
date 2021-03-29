@@ -1,6 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/auth";
-import "firebase/database";
+import "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -18,5 +18,7 @@ const firebaseConfig = {
   
   // export 시킴으로써 한 번만 호출해도 되게끔. 
   export const authService = firebase.auth();
+
+  export const dbService = firebase.firestore();
 
   

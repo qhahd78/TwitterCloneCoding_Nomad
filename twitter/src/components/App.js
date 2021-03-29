@@ -8,10 +8,15 @@ function App() {
   // state 에 현재 유저 정보를 저장. 현재 로그인/로그아웃 상태를 알 수 있다. 
   const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
   // Router 에 props 형태로 state를 전달
+  const [userObj, setUserObj] = useState(null);
+
+  // 로그인 시 호출
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if(user){
+        // 로그인 한 user 받기
         setIsLoggedIn(true);
+        setUserObj(user);
       } else {
         setIsLoggedIn(false);
       }
@@ -22,7 +27,7 @@ function App() {
   return (
     <>
     {/* 초기화 중에는 Initializing 출력 하다가 로그인 되면 home 보이기 */}
-      {init ? <AppRouter isLoggedIn={isLoggedIn} /> : "Initializing...."}
+      {init ? <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} /> : "Initializing...."}
       <footer>&copy; TwitterApp {new Date().getFullYear()}</footer>
     </>
     );

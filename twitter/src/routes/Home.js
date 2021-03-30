@@ -60,6 +60,7 @@ function Home({ userObj }) {
             </form>
             <div>
                 {nweets.map((nweet) => (
+                    // Nweet에 props 형태로 전달해준다. 
                    <Nweet 
                     key={nweet.id} 
                     nweetObj={nweet} 

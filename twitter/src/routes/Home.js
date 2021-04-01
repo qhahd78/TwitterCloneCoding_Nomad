@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react'
 import { dbService } from "firebasekeys";
 import Nweet from 'components/Nweet';
 
+
+// Home 의 props 로부터 useruid 를 가져온다. (Router로부터 전달받음. )
 function Home({ userObj }) {
     // console.log(userObj.email);
     const [nweet, setNweet] = useState("");
@@ -22,11 +24,15 @@ function Home({ userObj }) {
 
     useEffect(() => {
         // getNweets();
+        // snapshot : DB 에 무언가 일이 일어날 때마다 알림. 
+         
         dbService.collection("nweets").onSnapshot((snapshot) => {
+            // 새로운 스냅샷을 받을 때마다 배열을 만든다.
             const nweetArray = snapshot.docs.map(doc => ({
                 id:doc.id,
                 ...doc.data(),
             }));
+            // state 에 배열을 넣는다. 
             setNweets(nweetArray);
         })
     }, []);
@@ -59,11 +65,15 @@ function Home({ userObj }) {
                 <input type="submit" value="Nweet" />
             </form>
             <div>
+                {/* map 을 통해 nweet 을 하나씩 풀어주어 Nweet Component 를 만든다 */}
                 {nweets.map((nweet) => (
                     // Nweet에 props 형태로 전달해준다. 
                    <Nweet 
                     key={nweet.id} 
+                    /* Nweet component 는 2개의 props. nweetObj 와 isOwner */
+                    /* nweet 의 모든 데이터 */
                     nweetObj={nweet} 
+                    /* nweet 을 만든사람과 userObj.uid 가 같다면 true, 아니면 false */
                     isOwner={nweet.creatorId === userObj.uid} 
                     />
                 ))}

@@ -57,11 +57,28 @@ function Home({ userObj }) {
         setNweet(value);
     };
 
-    // console.log(nweets);
+    const onFileChange = (event) => {
+        // event 안의 target 안에서 파일을 받는다. 
+        const {
+            target: {files},
+        } = event;
+        // 파일은 하나니까 files 리스트에서 제일 첫 번째 거
+        const theFile = files[0];
+        // reader 생성
+        const reader = new FileReader();
+        reader.onloadend = (finishedEvent) => {
+            console.log(finishedEvent);
+        };
+        // readAsDataURL 을 이용해 파일을 읽는다. 읽는 게 끝나면
+        // finishedEvent 를 받는다. 
+        reader.readAsDataURL(theFile);
+    };
     return (
         <div>
             <form onSubmit={onSubmit}>
                 <input value = {nweet} onChange ={onChange} type="text" placeholder="What's on your mind?" maxLength={120} />
+                {/* accept 설정 해놓으면 image 만 첨부할 수 있게 됨  */}
+                <input type="file" accept="image/*" onChange={onFileChange} />
                 <input type="submit" value="Nweet" />
             </form>
             <div>

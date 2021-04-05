@@ -7,6 +7,7 @@ import Nweet from 'components/Nweet';
 function Home({ userObj }) {
     // console.log(userObj.email);
     const [nweet, setNweet] = useState("");
+    
     const [nweets, setNweets] = useState([]);
     // 컴포넌트가 mount 될 때, getNweets 실행 
     // const getNweets = async() => {

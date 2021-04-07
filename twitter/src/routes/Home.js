@@ -33,6 +33,7 @@ function Home({ userObj }) {
                 id:doc.id,
                 ...doc.data(),
             }));
+            
             // state 에 배열을 넣는다. 
             setNweets(nweetArray);
         })
